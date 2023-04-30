@@ -1,7 +1,8 @@
-from dataclasses import dataclass, fields
+from dataclasses import KW_ONLY, dataclass, fields
 from types import GenericAlias
 from typing import (
     Any,
+    ClassVar,
     Generic,
     Optional,
     Protocol,
@@ -17,6 +18,10 @@ def is_concrete_type(
     cls: type | dict[str, type] | tuple[type, ...] | list[type]
 ) -> tuple[bool, list[type]]:
     bad_attrs: list[type] = []
+
+    # ignore special types/values
+    if get_origin(cls) in (ClassVar,) or cls in (KW_ONLY,):
+        return False, []
 
     if isinstance(cls, dict):
         for t in cls.values():
