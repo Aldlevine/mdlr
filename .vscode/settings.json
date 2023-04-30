@@ -1,0 +1,5 @@
+{
+    "python.formatting.provider": "black",
+    "vscode-pydata-viewer.pythonPath": "/home/aaron/Documents/Projects/mdlr/.venv/bin/python3",
+    "python.analysis.typeCheckingMode": "basic"
+}
