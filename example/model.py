@@ -3,9 +3,9 @@ from dataclasses import asdict, dataclass
 import torch
 import torch.nn as nn
 
-import src.state as state
-from src.serialize import SerializableData
-from src.utils import default_field
+import mdlr.state as state
+from mdlr.serialize import SerializableData
+from mdlr.utils import default_field
 
 
 @dataclass(kw_only=True)
