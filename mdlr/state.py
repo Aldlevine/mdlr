@@ -51,7 +51,7 @@ class StateSerializer(Generic[TParam, TState, *TConfArgs], abc.ABC):
 
 
 class ManagedState(
-    StateSerializer[TParam, TState, bool, *TConfArgs], abc.ABC, param_t=None, state_t=None
+    StateSerializer[TParam, TState, *TConfArgs], abc.ABC, param_t=None, state_t=None
 ):
     @classmethod
     def __init_subclass__(cls, param_t: type[TParam], state_t: type[TState]) -> None:
@@ -77,7 +77,7 @@ class ManagedState(
         super().__init__()
         if isinstance(p, SerializableData):
             self.param: TParam = p
-            self.state: TState = self.configure(p, True, *conf_args)
+            self.state: TState = self.configure(p, *conf_args)
             return
 
         if isinstance(p, str):

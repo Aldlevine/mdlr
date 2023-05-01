@@ -5,8 +5,8 @@ from dataclasses import dataclass
 
 from fyst import Cel, Row, Table
 
-from src.cli import Cli
-from src.serialize import SerializableData
+from mdlr.cli import Cli
+from mdlr.serialize import SerializableData
 
 from .model import ModelParam
 from .train import Trainer, TrainParam
