@@ -9,16 +9,16 @@ class Stringable(Protocol):
         ...
 
 
-Audio_t = Tensor | np.ndarray
-EmbedMat_t = Tensor | np.ndarray
+Audio_t = Tensor
+EmbedMat_t = Tensor
 EmbedMeta_t = list[Stringable]
 FPS_t = int
-Hist_t = Tensor | np.ndarray
+Hist_t = Tensor
 Img_t = Tensor
 SampleRate_t = int
-Scalar_t = float | Tensor | np.ndarray
+Scalar_t = float | Tensor
 Step_t = int
 Tag_t = str
 Text_t = str
 Time_t = float
-Video_t = Tensor | np.ndarray
+Video_t = Tensor
