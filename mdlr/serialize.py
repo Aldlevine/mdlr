@@ -84,6 +84,8 @@ def getattr_or_none(obj: Any | None, k: str) -> Any:
 def getidx_or_none(obj: Any | None, k: int) -> Any:
     if obj == None:
         return None
+    if len(obj) <= k:
+        return None
     return obj[k]
 
 
