@@ -1,8 +1,6 @@
 import abc
 from typing import Any, Generic, NamedTuple, TypeVar, TypeVarTuple, overload
 
-import torch
-
 from .serialize import SerializableData
 
 TParam = TypeVar("TParam", bound=SerializableData)
@@ -81,6 +79,7 @@ class ManagedState(
             return
 
         if isinstance(p, str):
+            import torch
             p = SerializedStateData(*torch.load(p))
 
         if not isinstance(p, tuple):
@@ -92,4 +91,5 @@ class ManagedState(
         return super().serialize(self.param, self.state)
 
     def save(self, path: str) -> None:
+        import torch
         torch.save(tuple(self.serialize()), path)

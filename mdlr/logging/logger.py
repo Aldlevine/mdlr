@@ -1,19 +1,7 @@
 import time
-from typing import (
-    Any,
-    Callable,
-    Concatenate,
-    Iterable,
-    NotRequired,
-    ParamSpec,
-    Unpack,
-    cast,
-)
-
-import torch
+from typing import Any, Callable, Concatenate, NotRequired, ParamSpec, Unpack, cast
 
 from ..serialize import StateDictSerializable
-
 from .logger_adapter import LoggerAdapter
 from .logger_types import (
     Audio_t,
@@ -112,6 +100,9 @@ class Logger(StateDictSerializable):
         Shape:
             img: (C, H, W) | (N, C, H, W) | (Y, X, C, H, W)
         """
+
+        import torch
+
         step, wtime = self._step_time(tag, args)
 
         dim = img.dim()

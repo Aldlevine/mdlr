@@ -1,7 +1,9 @@
-from typing import Protocol
+from typing import TYPE_CHECKING, Protocol
 
 import numpy as np
-from torch import Tensor
+
+if TYPE_CHECKING:
+    from torch import Tensor
 
 
 class Stringable(Protocol):
