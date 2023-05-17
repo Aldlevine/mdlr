@@ -70,6 +70,10 @@ def is_concrete_type(
 
     return len(bad_attrs) == 0, bad_attrs
 
+def get_or_none(obj: Any | None, k: str) -> Any:
+    if not isinstance(obj, dict):
+        return None
+    return obj.get(k, None)
 
 def getattr_or_none(obj: Any | None, k: str) -> Any:
     if obj == None:
@@ -79,6 +83,8 @@ def getattr_or_none(obj: Any | None, k: str) -> Any:
 
 def getidx_or_none(obj: Any | None, k: int) -> Any:
     if obj == None:
+        return None
+    if len(obj) <= k:
         return None
     return obj[k]
 
@@ -224,12 +230,14 @@ def deserialize(
         if isinstance(args[0], dict):
             # TypedDict
             return {
-                k: deserialize(args[0][k], v, getattr_or_none(state, k))
+                # k: deserialize(args[0][k], v, getattr_or_none(state, k))
+                k: deserialize(args[0][k], v, get_or_none(state, k))
                 for k, v in data.items()
             }
         else:
             return {
-                k: deserialize(args[1], v, getattr_or_none(state, k))
+                # k: deserialize(args[1], v, getattr_or_none(state, k))
+                k: deserialize(args[1], v, get_or_none(state, k))
                 for k, v in data.items()
             }
 

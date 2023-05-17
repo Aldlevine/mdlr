@@ -8,10 +8,10 @@ import torchvision.datasets as vdata
 import torchvision.transforms as vxform
 from tqdm import tqdm
 
-from src import state, trainer
-from src.logging import Logger, TensorboardAdapter
-from src.serialize import SerializableData
-from src.utils import RunningMean, default_field, loop
+from mdlr import state, trainer
+from mdlr.logging import Logger, TensorboardAdapter
+from mdlr.serialize import SerializableData
+from mdlr.utils import RunningMean, default_field, loop
 
 from .model import ModelParam, ModelState, ModelStateManager
 

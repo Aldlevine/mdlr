@@ -85,7 +85,7 @@ class ManagedState(
         if not isinstance(p, tuple):
             raise TypeError(f"Invalid argument")
 
-        self.param, self.state = self.deserialize(p, *conf_args)
+        self.param, self.state = self.deserialize(p, False, *conf_args)
 
     def serialize(self) -> SerializedStateData:
         return super().serialize(self.param, self.state)
