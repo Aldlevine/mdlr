@@ -1,31 +1,32 @@
 import time
-from typing import Any, Callable, Concatenate, NotRequired, ParamSpec, Unpack, cast
+from typing import Any, Callable, Concatenate, NotRequired, ParamSpec, Unpack, cast, TYPE_CHECKING
 
 from ..serialize import StateDictSerializable
 from .logger_adapter import LoggerAdapter
-from .logger_types import (
-    Audio_t,
-    EmbedMat_t,
-    EmbedMeta_t,
-    FPS_t,
-    Hist_t,
-    Img_t,
-    SampleRate_t,
-    Scalar_t,
-    Step_t,
-    Tag_t,
-    Text_t,
-    Time_t,
-    Video_t,
-)
+if TYPE_CHECKING:
+    from .logger_types import (
+        Audio_t,
+        EmbedMat_t,
+        EmbedMeta_t,
+        FPS_t,
+        Hist_t,
+        Img_t,
+        SampleRate_t,
+        Scalar_t,
+        Step_t,
+        Tag_t,
+        Text_t,
+        Time_t,
+        Video_t,
+    )
 
 PSApply = ParamSpec("PSApply")
 
 SharedParams_t = dict[
     {
-        "step": NotRequired[Step_t | None],
-        "inc": NotRequired[Step_t | None],
-        "wtime": NotRequired[Time_t | None],
+        "step": "NotRequired[Step_t | None]",
+        "inc": "NotRequired[Step_t | None]",
+        "wtime": "NotRequired[Time_t | None]",
     }
 ]
 
@@ -57,7 +58,7 @@ class Logger(StateDictSerializable):
             adpt_fn = getattr(adpt, fn.__name__)
             adpt_fn(*args, **kwargs)
 
-    def _step_time(self, tag: Tag_t, params: SharedParams_t) -> tuple[Step_t, Time_t]:
+    def _step_time(self, tag: "Tag_t", params: SharedParams_t) -> tuple["Step_t", "Time_t"]:
         inc = cast(Step_t, params.get("inc", 1))
         step = params.get("step", None)
         wtime = cast(Time_t, params.get("wtime", time.time()))
@@ -70,8 +71,8 @@ class Logger(StateDictSerializable):
 
     def add_scalar(
         self,
-        tag: Tag_t,
-        scalar: Scalar_t,
+        tag: "Tag_t",
+        scalar: "Scalar_t",
         **args: Unpack[SharedParams_t],
     ) -> None:
         step, wtime = self._step_time(tag, args)
@@ -79,8 +80,8 @@ class Logger(StateDictSerializable):
 
     def add_histogram(
         self,
-        tag: Tag_t,
-        values: Hist_t,
+        tag: "Tag_t",
+        values: "Hist_t",
         **args: Unpack[SharedParams_t],
     ) -> None:
         step, wtime = self._step_time(tag, args)
@@ -88,8 +89,8 @@ class Logger(StateDictSerializable):
 
     def add_image(
         self,
-        tag: Tag_t,
-        img: Img_t,
+        tag: "Tag_t",
+        img: "Img_t",
         **args: Unpack[SharedParams_t],
     ) -> None:
         """_summary_
@@ -124,9 +125,9 @@ class Logger(StateDictSerializable):
 
     def add_video(
         self,
-        tag: Tag_t,
-        video: Video_t,
-        fps: FPS_t = 4,
+        tag: "Tag_t",
+        video: "Video_t",
+        fps: "FPS_t" = 4,
         **args: Unpack[SharedParams_t],
     ) -> None:
         step, wtime = self._step_time(tag, args)
@@ -134,9 +135,9 @@ class Logger(StateDictSerializable):
 
     def add_audio(
         self,
-        tag: Tag_t,
-        audio: Audio_t,
-        sample_rate: SampleRate_t = 44_100,
+        tag: "Tag_t",
+        audio: "Audio_t",
+        sample_rate: "SampleRate_t" = 44_100,
         **args: Unpack[SharedParams_t],
     ) -> None:
         step, wtime = self._step_time(tag, args)
@@ -144,8 +145,8 @@ class Logger(StateDictSerializable):
 
     def add_text(
         self,
-        tag: Tag_t,
-        text: Text_t,
+        tag: "Tag_t",
+        text: "Text_t",
         **args: Unpack[SharedParams_t],
     ) -> None:
         step, wtime = self._step_time(tag, args)
@@ -153,10 +154,10 @@ class Logger(StateDictSerializable):
 
     def add_embedding(
         self,
-        tag: Tag_t,
-        mat: EmbedMat_t,
-        meta: EmbedMeta_t | None = None,
-        img: Img_t | None = None,
+        tag: "Tag_t",
+        mat: "EmbedMat_t",
+        meta: "EmbedMeta_t | None" = None,
+        img: "Img_t | None" = None,
         **args: Unpack[SharedParams_t],
     ) -> None:
         step, wtime = self._step_time(tag, args)
